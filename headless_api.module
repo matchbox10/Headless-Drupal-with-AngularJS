@@ -1,0 +1,20 @@
+<?php
+
+module_load_include('inc', 'headless_api', 'includes/functions');
+
+ function headless_api_menu() {
+    $items['node-data'] = array(
+    'title' => 'Example Page',
+    'page callback' => 'headless_api_nodes',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1),
+  );
+    $items['test-data'] = array(
+    'title' => 'Example Page',
+    'page callback' => 'headless_api_test',
+    'access arguments' => array('access content'),
+  );
+    
+    return $items;
+  }
+  

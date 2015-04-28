@@ -1,0 +1,6 @@
+name = headless_api
+description = This exports essential items in json
+core = 7.x
+package = Marky Mark Ali
+php = 5.3
+
