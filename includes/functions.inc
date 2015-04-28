@@ -24,6 +24,7 @@
         $counter++;
     }
 
+    
     $export = (object) $export;
       
       drupal_json_output($export);
