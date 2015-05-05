@@ -1,8 +1,11 @@
 <?php
 
-module_load_include('inc', 'headless_api', 'includes/functions');
+module_load_include('inc', 'headless_api', 'includes/models');
+module_load_include('inc', 'headless_api', 'includes/controllers');
 
  function headless_api_menu() {
+     
+     #Page with all items from a content type that is published
     $items['node-data'] = array(
     'title' => 'Example Page',
     'page callback' => 'headless_api_nodes',
@@ -15,6 +18,25 @@ module_load_include('inc', 'headless_api', 'includes/functions');
     'access arguments' => array('access content'),
   );
     
+   $items['page-template-v1'] = array(
+    'title' => 'Page template - V1',
+    'page callback' => 'headless_api_page',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1),
+  );  
+    
     return $items;
   }
   
+  function headless_api_theme() {
+   #Get path to module
+    $module_path = drupal_get_path('module', 'headless_api');
+    #return Theme
+    return array(
+        'page_v1' => array(
+            'variables' => array('data'),
+            'template' => 'page-v1',
+            'path' => $module_path.'/templates/'
+        )
+    );
+  } 

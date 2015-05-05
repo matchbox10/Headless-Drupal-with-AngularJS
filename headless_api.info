@@ -1,6 +1,16 @@
 name = headless_api
-description = This exports essential items in json
+description = This is a Training module for linking Drupal 7.x to AngularJS using procedural methodology 
 core = 7.x
 package = Marky Mark Ali
 php = 5.3
+engine = phptemplate
 
+
+
+;Libraries added from non-CDN source to ensure they are cached properly
+;CDN usage could mean deletion from cache of client machine
+
+scripts[] = libraries/angular.min.js
+
+;Controller for AngularJS
+scripts[] = js/controllers.js
