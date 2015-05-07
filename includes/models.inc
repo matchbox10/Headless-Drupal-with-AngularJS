@@ -8,18 +8,18 @@
   function headless_api_nodes($type = 'article') {
       
     $nodes = node_load_multiple(array(), array('type' => $type, 'status' => 1)); 
-     # echo "this works " . $nid;
+    //echo "this works " . $nodes;
+    //print_r($nodes);
     
-    
-    $export = array();
-    #sanitise
+    $export = array();  
+#sanitise
     
     $counter = 0;
     foreach($nodes as $row) {
-        $export[$counter]->title = $row->title;
-        $export[$counter]->type = $row->type;
-        $export[$counter]->created = $row->created;
-        $export[$counter]->body = $row->body['und'][0]['value'];
+        $export[$counter]['title'] = $row->title;
+        $export[$counter]['type'] = $row->type;
+        $export[$counter]['created'] = $row->created;
+        $export[$counter]['body'] = $row->body['und'][0]['value'];
         $counter++;
     }
 

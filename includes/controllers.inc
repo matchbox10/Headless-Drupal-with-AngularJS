@@ -8,16 +8,16 @@
 
 #load header scripts into template
 function headless_create_head($header = 'script') {
-    
+    $data ='';
     if($header == 'script') {
         $headLibraries = headless_set_libraries();
-        foreach($headLibraries as $createLibrary) :
-            $data .= '<script src="' . $headLibraries . '"></script>';
+        foreach($headLibraries['js'] as $createLibrary) :
+            $data .= '<script src="' . $createLibrary . '"></script>';
         endforeach;
-    } elseif($header == 'style') {
+    } elseif($header == 'style1') {
         $data = '<style type="text/css" media="all">';
-                foreach($headLibraries as $createLibrary) :
-            $data .= '@import url("' . $headLibraries . '");';
+        foreach($headLibraries['css'] as $createLibrary) :
+            $data .= '@import url("' . $createLibrary . '");';
         endforeach;
         $data .= '</style>';
     }
@@ -33,9 +33,10 @@ function headless_set_libraries() {
     $module_path = $base_url . "/" . drupal_get_path('module', 'headless_api');
     
     #get libraries to include
-    $data['angularJS'] = $module_path . '/libraries/angular.min.js';
-    $data['angularController'] = $module_path . '/' . 'js/controllers.js';
+    $data['js']['angularJS'] = $module_path . '/libraries/angular.min.js';
+    $data['js']['angularController'] = $module_path . '/' . 'js/controllers.js';
     
+    $data['css']['main'] = $module_path . '/' . 'css/main.css';
     
     return $data;
     
@@ -51,20 +52,18 @@ function headless_set_styles() {
 function headless_api_page($type = 'article') {
     
     #set data to be parsed to template
-    $headers['script'] = headless_create_head('script');
-    $headers['style'] = headless_create_head('style');
-    
+    $scripts['script'] = headless_create_head('script');
+    $scripts['style'] = headless_create_head('style');
     
     #Set Styles
     $styles = headless_set_styles();
-    $data = array('test');
+    $data = 'Test';
     
     #information to be parsed through to theme template
     $data = array('type' => $type,
         'data' => $data,
-        'scripts' => array('head' => $headers),
         'css' => 'css');
     
-    print theme('page_v1', array('data' => $data));
+    print theme('page_v1', array('data' => $data, 'scripts' => $scripts));
     
 }

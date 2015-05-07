@@ -34,7 +34,7 @@ module_load_include('inc', 'headless_api', 'includes/controllers');
     #return Theme
     return array(
         'page_v1' => array(
-            'variables' => array('data'),
+            'variables' => array('data','scripts'),
             'template' => 'page-v1',
             'path' => $module_path.'/templates/'
         )
