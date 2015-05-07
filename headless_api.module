@@ -39,4 +39,5 @@ module_load_include('inc', 'headless_api', 'includes/controllers');
             'path' => $module_path.'/templates/'
         )
     );
-  } 
+  }
+  
