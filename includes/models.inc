@@ -10,24 +10,49 @@
     $nodes = node_load_multiple(array(), array('type' => $type, 'status' => 1)); 
     //echo "this works " . $nodes;
     //print_r($nodes);
-    
-    $export = array();  
+    $records = new stdClass();
+    $export = array();
 #sanitise
     
     $counter = 0;
     foreach($nodes as $row) {
-        $export[$counter]['title'] = $row->title;
-        $export[$counter]['type'] = $row->type;
-        $export[$counter]['created'] = $row->created;
-        $export[$counter]['body'] = $row->body['und'][0]['value'];
+        $export[] = array('title' => $row->title, 'type' => $row->type, 'created' => $row->created, 'body' => $row->body['und'][0]['value']);
         $counter++;
     }
 
     
-    $export = (object) $export;
+    $records->records = $export;
       
-      drupal_json_output($export);
+      drupal_json_output($records);
   }
+  
+  #export the blocks
+  function headless_api_blocks($region = 'content') {
+      
+       $records = new stdClass();
+      $result = db_query('SELECT
+block_custom.body,
+block.title,
+block.region,
+block_custom.info,
+block.weight,
+block.`status`
+FROM
+block
+INNER JOIN block_custom ON block_custom.bid = block.bid
+WHERE
+block.`status` = 1 
+ORDER BY block.weight ASC', array(':region' => $region));
+      
+        foreach($result as $row) {
+            $export[] = array('title' => $row->info, 'body' => $row->body, 'region' => $row->region);
+
+    }
+   // print_r($result);
+    $records->records = $export;
+     drupal_json_output($records);
+  }
+  
   
 function headless_api_test() {
     global $base_url; 

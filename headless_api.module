@@ -23,6 +23,12 @@ module_load_include('inc', 'headless_api', 'includes/controllers');
     'page callback' => 'headless_api_page',
     'access arguments' => array('access content'),
     'page arguments' => array(1),
+  ); 
+  $items['api/blocks'] = array(
+    'title' => 'Blocks- V1',
+    'page callback' => 'headless_api_blocks',
+    'access arguments' => array('access content'),
+    'page arguments' => array(2),
   );  
     
     return $items;
